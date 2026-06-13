@@ -23,3 +23,13 @@
 - **決定**: Yohaku(余白)系。優先順 YohakuStudio → YohakuGoods → YohakuCo → StudioYohaku → YohakuPaper。開設時に空いている最初のものを取る
 - **根拠**: 余白=「less clutter, more clarity」がvoice.mdの哲学と完全一致。和柄(余白を活かす紋様)・ADHDプランナー(視覚負荷が低い)・和妖怪(余白の闇)の3ニッチすべてに意味が通る
 - **影響**: 英語プロフィール文を templates/brand/shop-profile.md に用意。最終空き確認はEtsy開設フローで人間が行う
+
+## ADR-005: 決済とチャネルの方針(2026-06-13)
+- **背景**: Payoneer本人確認(免許証旧住所)を機に、Payoneer以外の入金経路と販売チャネルを調査
+- **確定事実**: 海外売上の受取はどのPFもKYCで住所確認が必須(Payoneer特有でない。Stripe/PayPalも同様)。→ 免許証の新住所変更が全決済の土台で、回避不可
+- **決定**:
+  - 軸はEtsy(検索流入が最強=初月の打率が最も高い)。Payoneerで進める
+  - 和柄SVGの第2チャネル候補: Creative Fabrica / Design Bundles / Creative Market(いずれも内部検索流入あり、PayPal/銀行振込/Wireで受取可=Payoneer非依存の道もある)。**Etsyが回り始めてから横展開**(products/マスター設計で追加制作コストほぼゼロ)
+  - 柱C(開発者向け商品)はGumroadが日本ペイアウト弱い(PayPal受取不可情報)ため、Lemon Squeezy / Payhip に変更を検討
+- **根拠**: 最初から多チャネルに広げず、Etsyで勝ち筋を検証→限界コストゼロで横展開する方が、薄く広げる設計思想と一致
+- **影響**: 第2チャネルへの横展開は「Etsyショップ全体が月¥15,000超」を目安に週次戦略会議で判断(KPI基準と連動)
