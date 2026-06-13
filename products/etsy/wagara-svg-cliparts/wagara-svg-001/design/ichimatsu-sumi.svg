@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect x="0.00" y="0.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="0.00" y="200.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="0.00" y="400.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="0.00" y="600.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="100.00" y="100.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="100.00" y="300.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="100.00" y="500.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="100.00" y="700.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="200.00" y="0.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="200.00" y="200.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="200.00" y="400.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="200.00" y="600.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="300.00" y="100.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="300.00" y="300.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="300.00" y="500.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="300.00" y="700.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="400.00" y="0.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="400.00" y="200.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="400.00" y="400.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="400.00" y="600.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="500.00" y="100.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="500.00" y="300.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="500.00" y="500.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="500.00" y="700.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="600.00" y="0.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="600.00" y="200.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="600.00" y="400.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="600.00" y="600.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="700.00" y="100.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="700.00" y="300.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="700.00" y="500.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+  <rect x="700.00" y="700.00" width="100.00" height="100.00" fill="#1a1a1a"/>
+</svg>

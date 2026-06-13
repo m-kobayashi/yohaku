@@ -1,9 +1,0 @@
-slug: test-printable-001
-niche: _linttest
-type: printable
-price_usd: 8.50
-fonts: "Noto Sans JP (Google Fonts, OFL)"
-ai_disclosure: true
-created: 2026-06-13
-status: draft
-rubric_score: "[独自性:2 実用性:2 一貫性:2 技術:2 SEO:2 計:10/10] テストフィクスチャ"
