@@ -1,0 +1,27 @@
+{
+  "_comment": "headless cron運用用の権限設定サンプル。内容を確認のうえ、問題なければ .claude/settings.json として保存してください(人間の作業)。これがないとcronの claude -p 実行時に許可プロンプトで止まります。",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Write",
+      "Edit",
+      "WebSearch",
+      "WebFetch",
+      "Bash(bash ops/scripts/lint-listing.sh:*)",
+      "Bash(python3 ops/scripts/kpi-aggregate.py:*)",
+      "Bash(python3 ops/scripts/ledger-jpy.py:*)",
+      "Bash(mkdir:*)",
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)"
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+slug: kamon-svg-001
+niche: wagara-svg-cliparts
+type: svg-bundle
+price_usd: 10.00
+files: 5
+fonts: "N/A (geometric vector crests, no fonts used)"
+ai_disclosure: true
+created: 2026-06-13
+status: draft
+rubric_score: "[独自性:2 実用性:2 一貫性:2 技術:2 SEO:2 計:10/10] 5紋とも回転対称が数式で正確、目視確認済、商標無関係の汎用紋のみ、商用可"
+differentiator: "AI画像生成や手トレースでなく数式で描画。対称性・比率が正確=家紋の幾何学的正しさが差別化"
+crests:
+  - umebachi (梅鉢)
+  - kuyo (九曜)
+  - yotsume (四つ目結)
+  - kikko (亀甲)
+  - yotsuwari-bishi (四つ割菱)
+trademark_note: "すべてパブリックドメインの汎用紋。特定家系・企業商標(三菱/三井等)は不収録"
+generator: tools/kamon_svg.py
+excluded: "mitsudomoe(三つ巴)は渦の作図が未完成のため不収録。次バッチでベジェ再実装"
