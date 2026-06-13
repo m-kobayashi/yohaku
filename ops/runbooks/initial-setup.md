@@ -1,7 +1,7 @@
 # 初期設定チェックリスト(人間の作業、目安2〜3時間)
 
 ## 1. アカウント開設(約90分)
-- [ ] **Etsyショップ開設** (etsy.com/sell) — ショップ名はブランド決定後に。Etsy Paymentsの入金先としてPayoneerを接続、本人確認を完了
+- [ ] **Etsyショップ開設** (etsy.com/sell) — ショップ名は以下の優先順で空いている最初のものを取る: `YohakuStudio` → `YohakuGoods` → `YohakuCo` → `StudioYohaku` → `YohakuPaper`。確定したらvoice.mdの「確定ショップ名」行に追記。プロフィール各欄は `templates/brand/shop-profile.md` の文をそのまま貼る。Etsy Paymentsの入金先としてPayoneerを接続、本人確認を完了
 - [ ] **Pinterestビジネスアカウント** (business.pinterest.com) — 後でEtsyショップURLのドメイン認証を行う
 - [ ] **Gumroadアカウント** — 既存決済(PayPal等)を接続
 - [ ] (任意・後回し可) eRankアカウント(無料枠から。erank.com)

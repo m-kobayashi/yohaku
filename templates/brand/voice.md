@@ -38,6 +38,13 @@
 4. "Cure your ADHD chaos with this planner" — 医療的主張(cure/treat 禁止)
 5. "Cheap Japanese-style SVGs, best price ever" — 安売り訴求(価値で語る)
 
-## ショップ名・ブランディング方向(参考)
-- 候補の方向性: 静かな日本語1〜2語+英語の説明補助(例: "Shizuka Studio — calm goods from Japan" 系)
-- 最終決定はEtsyショップ開設時に人間が行う(候補リストはClaudeが生成)
+## ショップ名: Yohaku(余白)系 — 2026-06-13 人間承認済み
+- ブランドの核: **余白(yohaku)= negative space, the beauty of what's left empty**。voice.mdの "Less clutter, more clarity" がそのまま名前の意味になる
+- Etsyショップ名は英数字のみ20文字以内・開設後1回だけ変更可。**下記の優先順で、開設時に空いている最初の名前を取る**:
+  1. `YohakuStudio`(第1候補。中立・制作感・3ニッチ全対応)
+  2. `YohakuGoods`
+  3. `YohakuCo`
+  4. `StudioYohaku`
+  5. `YohakuPaper`(紙もの寄りだが温かい。SVG/妖怪商品にはやや限定的なので最後)
+- 確定したショップ名を、開設後この行に追記すること: **確定ショップ名: (未確定)**
+- 英語プロフィール文(About/Announcement/タグライン)は `templates/brand/shop-profile.md` に用意済み。Etsy開設時にそのまま使う
