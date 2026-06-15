@@ -34,10 +34,12 @@ ops/cron/run-claude-job.sh "/compliance-check 日次検査のみ実行" /tmp/tes
 cat /tmp/test-claude-job.log    # "Not logged in" が消え、正常に動けばOK
 ```
 
-## コスト注意(2026-06-15〜)
-- この日からMaxサブスクの `claude -p`/Agent SDK利用に**月額$200相当の専用クレジット枠**が自動適用され、対話利用枠と分離される
-- daily-production(1日数件生成)程度なら枠内に収まる見込みだが、超過分は従量課金になりうる
-- 対策: 生成上限(商品案3件+ピン10件/日)を厳守。枠消費が大きければ週次戦略会議で頻度・量を調整
+## コスト(2026-06-15〜のAgent SDK課金変更)
+- claude -p/Agent SDK利用が対話利用枠と分離。**Max 20xにはagent専用クレジット月$200相当がサブスクに含まれる形で付く(追加料金ではない)**。Max 5xは$100
+- クレジットを使い切ると自動ジョブは**停止する**(overage/API課金を明示的に有効化しない限り課金されない=コスト暴走なし)。未使用分は繰越不可
+- daily-production(1日数件)程度は$200枠に十分収まる見込み。むしろheadless専用枠ができ、対話利用枠を食わなくなる
+- 枠消費は週次で監視。万一止まったら頻度調整 or overage有効化を判断
+- 出典: support.claude.com/en/articles/15036540
 
 ## 確実性を上げたい場合: launchd 化(任意・推奨)
 cron は Mac スリープ中に動かない。launchd ならスリープ復帰後も実行される。

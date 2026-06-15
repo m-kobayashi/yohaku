@@ -37,5 +37,5 @@
 ## ADR-006: cron/headless認証とコスト前提の修正(2026-06-14)
 - **背景**: cronの `claude -p` ジョブが全て「Not logged in」で失敗(python/gitは正常)。原因は対話ログイン認証がmacOS Keychainにあり、cronから読めないこと
 - **決定**: `claude setup-token` で長期OAuthトークンを発行し、~/.claude/.oauth-token-env(600)に保存。ops/cron/run-claude-job.sh ラッパーが読み込んでheadless認証する。crontabはラッパー経由に更新。launchd化は次段階の改善
-- **コスト前提の修正(重要)**: 2026-06-15からMaxサブスクの `claude -p`/Agent SDK利用に月額$200相当の専用クレジット枠が自動適用・分離される。当初の「Max 20xなら自動量産は追加コストゼロ」前提は要修正。daily-production程度は枠内見込みだが、生成上限(3商品+10ピン/日)を厳守し、枠消費を週次で監視。超過が常態化すれば頻度・量を調整
+- **コスト前提(2026-06-15のAgent SDK課金変更を公式確認)**: claude -p/Agent SDK利用が対話利用枠と分離。Max 20xには **agent専用クレジット月$200相当がサブスクに含まれる形で付与**(追加料金ではない。Max 5xは$100)。クレジットを使い切ると自動ジョブは**停止**(overage/API課金を明示有効化しない限り課金されない=コスト暴走なし)。未使用分は繰越不可。→ 当初の「Max 20xで追加コストゼロ」前提はほぼ維持。daily-production程度は$200枠に十分収まる見込みで、むしろheadless専用枠ができ対話枠を消費しなくなる改善。枠消費は週次で監視し、止まったら頻度調整 or overage有効化を判断。出典: support.claude.com/articles/15036540
 - **影響**: 初期設定に「setup-token発行」が人間の必須作業として追加(ops/runbooks/cron-auth.md)。トークン未設定の間は claude系ジョブは安全にスキップ(ラッパーがエラーログを残して exit)
