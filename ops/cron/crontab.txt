@@ -5,7 +5,7 @@
 # 重要(認証):
 #  - claude を使うジョブは ops/cron/run-claude-job.sh 経由で実行する。
 #    対話ログインの認証は Keychain にあり cron からは読めない(Not logged in)ため、
-#    `claude setup-token` の長期トークンを ~/.claude/.oauth-token-env から読む。
+#    `claude setup-token` の長期トークンを secrets/oauth-token.env から読む。
 #    → セットアップ手順は ops/runbooks/cron-auth.md
 #  - python/git ジョブは claude 不要なのでそのまま実行(動作実績あり)。
 #  - Macスリープ中は cron は動かない。確実性を上げるなら launchd 化(cron-auth.md参照)。
