@@ -6,7 +6,7 @@ files: 5
 fonts: "N/A (geometric vector crests, no fonts used)"
 ai_disclosure: true
 created: 2026-06-13
-status: draft
+status: pending
 rubric_score: "[独自性:2 実用性:2 一貫性:2 技術:2 SEO:2 計:10/10] 5紋とも回転対称が数式で正確、目視確認済、商標無関係の汎用紋のみ、商用可"
 differentiator: "AI画像生成や手トレースでなく数式で描画。対称性・比率が正確=家紋の幾何学的正しさが差別化"
 crests:

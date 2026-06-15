@@ -34,6 +34,10 @@ fi
 . "$TOKEN_ENV"            # export CLAUDE_CODE_OAUTH_TOKEN=...
 unset ANTHROPIC_API_KEY  # 古い/無効なAPIキーがOAuthトークンより優先されるのを防ぐ
 
-echo "$(date '+%F %T') START: $PROMPT" >> "$LOG"
-claude -p "$PROMPT" --permission-mode acceptEdits >> "$LOG" 2>&1
+# headlessでは安定モデルを明示指定する。
+# Opus/Fableは高effort時にツールコール生成がパース失敗することがあるため既定はsonnet。
+# 必要なら CLAUDE_JOB_MODEL=opus 等で上書き可能。
+MODEL="${CLAUDE_JOB_MODEL:-sonnet}"
+echo "$(date '+%F %T') START ($MODEL): $PROMPT" >> "$LOG"
+claude -p "$PROMPT" --permission-mode acceptEdits --model "$MODEL" >> "$LOG" 2>&1
 echo "$(date '+%F %T') END (exit=$?): $PROMPT" >> "$LOG"

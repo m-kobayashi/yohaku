@@ -39,3 +39,16 @@
 - **決定**: `claude setup-token` で長期OAuthトークンを発行し、~/.claude/.oauth-token-env(600)に保存。ops/cron/run-claude-job.sh ラッパーが読み込んでheadless認証する。crontabはラッパー経由に更新。launchd化は次段階の改善
 - **コスト前提(2026-06-15のAgent SDK課金変更を公式確認)**: claude -p/Agent SDK利用が対話利用枠と分離。Max 20xには **agent専用クレジット月$200相当がサブスクに含まれる形で付与**(追加料金ではない。Max 5xは$100)。クレジットを使い切ると自動ジョブは**停止**(overage/API課金を明示有効化しない限り課金されない=コスト暴走なし)。未使用分は繰越不可。→ 当初の「Max 20xで追加コストゼロ」前提はほぼ維持。daily-production程度は$200枠に十分収まる見込みで、むしろheadless専用枠ができ対話枠を消費しなくなる改善。枠消費は週次で監視し、止まったら頻度調整 or overage有効化を判断。出典: support.claude.com/articles/15036540
 - **影響**: 初期設定に「setup-token発行」が人間の必須作業として追加(ops/runbooks/cron-auth.md)。トークン未設定の間は claude系ジョブは安全にスキップ(ラッパーがエラーログを残して exit)
+
+## ADR-007: headlessジョブのモデルをsonnet固定(2026-06-15)
+- **背景**: cron認証修復後、claude -p の `/compliance-check` が「The model's tool call could not be parsed (retry also failed)」で失敗。切り分けの結果、認証・基本応答・単純ツール使用は正常で、複雑なツールコール生成時のみ失敗
+- **原因**: 既定のOpus 4.8(high/xhigh effort)はheadlessで複雑なツールコール出力のパースが不安定(Claude Code 2.1.177時点)。同じコマンドをsonnetで実行すると完走しlint・整合修正・ログ記録まで正常
+- **決定**: ops/cron/run-claude-job.sh で `--model sonnet` を既定指定(環境変数 CLAUDE_JOB_MODEL で上書き可)。全headlessジョブ(compliance/tos/niche/kpi/daily-production)に適用
+- **根拠**: 自動運用は安定性が最優先。sonnet 4.6は制作・検査の品質に十分。品質不足が判明したジョブのみ CLAUDE_JOB_MODEL=opus 等で個別調整する
+- **影響**: 対話セッション(人間の作業)は引き続きOpus等を自由に使える。headless自動ジョブのみsonnet固定
+
+## ADR-008: 制作のSVG生成をスクリプト委譲しトークン浪費を防止(2026-06-15)
+- **背景**: daily-productionのテスト実行が3.5時間・session limit到達。claudeがSVGをその場のPythonで試行錯誤し、ルートに使い捨て.pyを16個量産。ユーザーから「claude消費を減らしたい」要望
+- **決定**: 和柄・家紋など決定論生成できるSVGは tools/wagara_svg.py / kamon_svg.py の実行に委譲。claudeの役割は企画・listing文章・品質目視のみ。使い捨て.py禁止。日次生成を商品3件→1件に削減
+- **根拠**: 数式で正確に描けるものをclaudeに毎回描かせるのは純粋な浪費。スクリプト実行はゼロトークン。トークン1/10以下・数分に短縮見込み
+- **影響**: daily-production.md軽量化、CLAUDE.mdレートリミット改定(商品1件/日)、品質保証に委譲原則を明記。テスト産物wagara-002/003/004は中途半端(listing/meta無し・品質未確認)のため削除。tools/wagara_svg.pyの拡張パターン(麻の葉・籠目・鱗・立涌・矢絣・菱等)は資産として残置、次回使用前にPNG目視で品質確認
