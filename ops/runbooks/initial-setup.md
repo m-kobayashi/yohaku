@@ -9,7 +9,7 @@
 ## 2. プロジェクト設定(約30分)
 - [ ] GitHubにprivateリポジトリを作成し、`git remote add origin ...` して初回push
 - [ ] **権限設定**: `ops/settings.example.json` の内容を確認し、問題なければ `cp ops/settings.example.json .claude/settings.json` を自分で実行(エージェントが自分の権限を広げることはできないため人間の作業。cron運用に必須)
-- [ ] **headless認証(cron必須)**: `claude setup-token` でトークン発行 → `~/.claude/.oauth-token-env`(600)に保存。手順は `ops/runbooks/cron-auth.md`。これがないと claude系cronジョブは全て「Not logged in」で失敗する
+- [ ] **headless認証(cron必須)**: `claude setup-token`(1行で)でトークン発行 → `secrets/oauth-token.env`(600)に保存。手順は `ops/runbooks/cron-auth.md`。これがないと claude系cronジョブは全て「Not logged in」で失敗する
 - [ ] `crontab ops/cron/crontab.txt` で反映(ラッパー経由・全置換)→ `crontab -l` で確認
 - [ ] cronの動作確認: 翌朝 `logs/cron-daily.log` が生成されているか
 - [ ] macOSの省エネ設定: 早朝ジョブのためスリープ解除を許可(または `pmset repeat wakeorpoweron MTWRFSU 05:25:00`)

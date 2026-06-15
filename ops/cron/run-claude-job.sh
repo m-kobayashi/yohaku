@@ -11,7 +11,7 @@ set -u
 export HOME=/Users/kobayashi
 export PATH=/Users/kobayashi/.local/bin:/usr/local/bin:/usr/bin:/bin
 PROJ=/Users/kobayashi/develop/11_AI/private
-TOKEN_ENV="$HOME/.claude/.oauth-token-env"
+TOKEN_ENV="$PROJ/secrets/oauth-token.env"   # プロジェクト内(secrets/はgitignore済み)
 
 PROMPT="${1:?プロンプトを指定してください}"
 LOG="${2:-$PROJ/logs/cron-claude.log}"
