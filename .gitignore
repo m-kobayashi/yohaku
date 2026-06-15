@@ -8,6 +8,8 @@ logs/*.log
 *.tmp
 tmp/
 
-# 機密(アカウント情報・APIキーは絶対にコミットしない)
+# 機密(アカウント情報・APIキー・トークンは絶対にコミットしない)
 .env
 secrets/
+*.oauth-token-env
+.oauth-token-env

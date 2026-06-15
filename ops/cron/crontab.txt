@@ -1,31 +1,35 @@
 # プロジェクト「雪だるま」cron定義
-# 反映方法: crontab -e で以下を貼り付け(既存エントリがある場合は追記)
-# 注意:
-#  - macOSでは cron に Full Disk Access が必要な場合あり(システム設定→プライバシーとセキュリティ)
-#  - Macがスリープ中は実行されない。確実性を上げるなら launchd 化を検討(ops/runbooks/incident.md 参照)
-#  - claude のパス: /Users/kobayashi/.local/bin/claude
-#  - 全ジョブは ops/STOP が存在すると自動的に何もしない(各コマンド冒頭でチェック)
+# 反映方法: crontab ops/cron/crontab.txt  (このファイルで全置換)
+#   または crontab -e で貼り付け
+#
+# 重要(認証):
+#  - claude を使うジョブは ops/cron/run-claude-job.sh 経由で実行する。
+#    対話ログインの認証は Keychain にあり cron からは読めない(Not logged in)ため、
+#    `claude setup-token` の長期トークンを ~/.claude/.oauth-token-env から読む。
+#    → セットアップ手順は ops/runbooks/cron-auth.md
+#  - python/git ジョブは claude 不要なのでそのまま実行(動作実績あり)。
+#  - Macスリープ中は cron は動かない。確実性を上げるなら launchd 化(cron-auth.md参照)。
+#  - 全ジョブは ops/STOP が存在すると何もしない(ラッパー/各コマンド冒頭でチェック)。
 
+SHELL=/bin/bash
+HOME=/Users/kobayashi
 PATH=/Users/kobayashi/.local/bin:/usr/local/bin:/usr/bin:/bin
 PROJ=/Users/kobayashi/develop/11_AI/private
 
-# 日次 05:30 量産(商品案3件+ピン10件まで)
-30 5 * * * cd $PROJ && claude -p "/daily-production" --permission-mode acceptEdits >> logs/cron-daily.log 2>&1
-
+# === claude を使うジョブ(ラッパー経由・フルパスで確実に) ===
+# 日次 05:30 量産
+30 5 * * * /Users/kobayashi/develop/11_AI/private/ops/cron/run-claude-job.sh "/daily-production" /Users/kobayashi/develop/11_AI/private/logs/cron-daily.log
 # 日次 06:30 コンプライアンス検査
-30 6 * * * cd $PROJ && claude -p "/compliance-check 日次検査のみ実行" --permission-mode acceptEdits >> logs/cron-compliance.log 2>&1
+30 6 * * * /Users/kobayashi/develop/11_AI/private/ops/cron/run-claude-job.sh "/compliance-check 日次検査のみ実行" /Users/kobayashi/develop/11_AI/private/logs/cron-compliance.log
+# 週次 土 06:00 ニッチスキャン
+0 6 * * 6 /Users/kobayashi/develop/11_AI/private/ops/cron/run-claude-job.sh "/niche-scan" /Users/kobayashi/develop/11_AI/private/logs/cron-niche.log
+# 週次 日 07:00 規約変更監視
+0 7 * * 0 /Users/kobayashi/develop/11_AI/private/ops/cron/run-claude-job.sh "/compliance-check 週次tos-watchのみ実行" /Users/kobayashi/develop/11_AI/private/logs/cron-tos.log
+# 週次 月 05:00 KPI集計
+0 5 * * 1 /Users/kobayashi/develop/11_AI/private/ops/cron/run-claude-job.sh "/kpi-update" /Users/kobayashi/develop/11_AI/private/logs/cron-kpi.log
 
-# 日次 07:00 台帳更新(スクリプト直接実行、Claude不要)
+# === claude 不要なジョブ(そのまま) ===
+# 日次 07:00 台帳更新
 0 7 * * * cd $PROJ && python3 ops/scripts/ledger-jpy.py >> logs/cron-ledger.log 2>&1
-
 # 日次 23:00 gitスナップショット
 0 23 * * * cd $PROJ && git add -A && git commit -m "daily snapshot $(date +\%Y-\%m-\%d)" >> logs/cron-git.log 2>&1; git push origin main >> logs/cron-git.log 2>&1
-
-# 週次 土 06:00 ニッチスキャン
-0 6 * * 6 cd $PROJ && claude -p "/niche-scan" --permission-mode acceptEdits >> logs/cron-niche.log 2>&1
-
-# 週次 日 07:00 規約変更監視
-0 7 * * 0 cd $PROJ && claude -p "/compliance-check 週次tos-watchのみ実行" --permission-mode acceptEdits >> logs/cron-tos.log 2>&1
-
-# 週次 月 05:00 KPI集計・判定下書き
-0 5 * * 1 cd $PROJ && claude -p "/kpi-update" --permission-mode acceptEdits >> logs/cron-kpi.log 2>&1

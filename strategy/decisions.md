@@ -33,3 +33,9 @@
   - 柱C(開発者向け商品)はGumroadが日本ペイアウト弱い(PayPal受取不可情報)ため、Lemon Squeezy / Payhip に変更を検討
 - **根拠**: 最初から多チャネルに広げず、Etsyで勝ち筋を検証→限界コストゼロで横展開する方が、薄く広げる設計思想と一致
 - **影響**: 第2チャネルへの横展開は「Etsyショップ全体が月¥15,000超」を目安に週次戦略会議で判断(KPI基準と連動)
+
+## ADR-006: cron/headless認証とコスト前提の修正(2026-06-14)
+- **背景**: cronの `claude -p` ジョブが全て「Not logged in」で失敗(python/gitは正常)。原因は対話ログイン認証がmacOS Keychainにあり、cronから読めないこと
+- **決定**: `claude setup-token` で長期OAuthトークンを発行し、~/.claude/.oauth-token-env(600)に保存。ops/cron/run-claude-job.sh ラッパーが読み込んでheadless認証する。crontabはラッパー経由に更新。launchd化は次段階の改善
+- **コスト前提の修正(重要)**: 2026-06-15からMaxサブスクの `claude -p`/Agent SDK利用に月額$200相当の専用クレジット枠が自動適用・分離される。当初の「Max 20xなら自動量産は追加コストゼロ」前提は要修正。daily-production程度は枠内見込みだが、生成上限(3商品+10ピン/日)を厳守し、枠消費を週次で監視。超過が常態化すれば頻度・量を調整
+- **影響**: 初期設定に「setup-token発行」が人間の必須作業として追加(ops/runbooks/cron-auth.md)。トークン未設定の間は claude系ジョブは安全にスキップ(ラッパーがエラーログを残して exit)
