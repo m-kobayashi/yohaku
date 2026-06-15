@@ -37,7 +37,7 @@
 | コマンド | タイミング | 上限 |
 |---|---|---|
 | /daily-production | cron 05:30 毎日 | 商品1件+ピン5件/日まで(SVGはtools/のスクリプトで生成。claudeで描かない) |
-| /compliance-check | cron 06:30 毎日 | — |
+| daily-compliance (ops/scripts/daily-compliance.sh) | cron 06:30 毎日 | claude不要・lint直実行(トークンゼロ) |
 | ledger-update (ops/scripts/ledger-jpy.py) | cron 07:00 毎日 | — |
 | /niche-scan | cron 土 06:00 | 新規候補10件/週まで |
 | tos-watch (weekly-strategy内+cron 日 07:00) | 週次 | — |

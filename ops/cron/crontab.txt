@@ -19,8 +19,6 @@ PROJ=/Users/kobayashi/develop/11_AI/private
 # === claude を使うジョブ(ラッパー経由・フルパスで確実に) ===
 # 日次 05:30 量産
 30 5 * * * /Users/kobayashi/develop/11_AI/private/ops/cron/run-claude-job.sh "/daily-production" /Users/kobayashi/develop/11_AI/private/logs/cron-daily.log
-# 日次 06:30 コンプライアンス検査
-30 6 * * * /Users/kobayashi/develop/11_AI/private/ops/cron/run-claude-job.sh "/compliance-check 日次検査のみ実行" /Users/kobayashi/develop/11_AI/private/logs/cron-compliance.log
 # 週次 土 06:00 ニッチスキャン
 0 6 * * 6 /Users/kobayashi/develop/11_AI/private/ops/cron/run-claude-job.sh "/niche-scan" /Users/kobayashi/develop/11_AI/private/logs/cron-niche.log
 # 週次 日 07:00 規約変更監視
@@ -28,7 +26,9 @@ PROJ=/Users/kobayashi/develop/11_AI/private
 # 週次 月 05:00 KPI集計
 0 5 * * 1 /Users/kobayashi/develop/11_AI/private/ops/cron/run-claude-job.sh "/kpi-update" /Users/kobayashi/develop/11_AI/private/logs/cron-kpi.log
 
-# === claude 不要なジョブ(そのまま) ===
+# === claude 不要なジョブ(スクリプト直実行・トークン消費ゼロ) ===
+# 日次 06:30 コンプライアンス検査(lint --all)
+30 6 * * * cd $PROJ && bash ops/scripts/daily-compliance.sh /Users/kobayashi/develop/11_AI/private/logs/cron-compliance.log
 # 日次 07:00 台帳更新
 0 7 * * * cd $PROJ && python3 ops/scripts/ledger-jpy.py >> logs/cron-ledger.log 2>&1
 # 日次 23:00 gitスナップショット
