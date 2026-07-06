@@ -19,6 +19,13 @@ PALETTE = {
     "shu": "#d9333f",    # 朱
 }
 
+# ゴシック配色(halloween-yokai-svg ニッチ向け。伝統紋様パターンをこの配色で流用する)
+GOTHIC_PALETTE = {
+    "kokushoku": "#0d0d0d",   # 黒色(漆黒)
+    "kyoshi": "#3d1350",      # 京紫寄りの深紫(妖しさ)
+    "kabocha": "#d2601a",     # かぼちゃ橙(ハロウィン)
+}
+
 SIZE = 800  # viewBox一辺(px)
 
 
@@ -339,11 +346,17 @@ PATTERNS = {
 }
 
 # 商品バンドル定義
+# 値はパターン名リスト(既定パレット=PALETTE使用)、または
+# {"patterns": [...], "palette": {...}} で専用配色を指定
 BUNDLES = {
     "wagara-svg-001": ["ichimatsu", "shippo", "seigaiha"],
     "wagara-svg-002": ["asanoha", "kagome", "uroko", "tatewaku"],
     "wagara-svg-003": ["yagasuri", "hishi", "nanako"],
     "wagara-svg-004": ["nami", "sayagata", "kagome"],
+    "halloween-yokai-001": {
+        "patterns": ["asanoha", "tatewaku", "sayagata"],
+        "palette": GOTHIC_PALETTE,
+    },
 }
 
 
@@ -353,10 +366,16 @@ def main():
     out = sys.argv[1]
     os.makedirs(out, exist_ok=True)
 
+    palette = PALETTE
     if len(sys.argv) >= 3:
         key = sys.argv[2]
         if key in BUNDLES:
-            pattern_names = BUNDLES[key]
+            bundle = BUNDLES[key]
+            if isinstance(bundle, dict):
+                pattern_names = bundle["patterns"]
+                palette = bundle.get("palette", PALETTE)
+            else:
+                pattern_names = bundle
         elif key in PATTERNS:
             pattern_names = [key]
         else:
@@ -367,7 +386,7 @@ def main():
     count = 0
     for pname in pattern_names:
         fn = PATTERNS[pname]
-        for cname, color in PALETTE.items():
+        for cname, color in palette.items():
             svg = fn(color)
             path = os.path.join(out, f"{pname}-{cname}.svg")
             with open(path, "w") as f:
