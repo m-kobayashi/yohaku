@@ -13,3 +13,6 @@ date,niche,demand,competition_gap,ai_fit,distortion,seasonality,total,status,not
 2026-06-13,wabi-sabi-journal,3,2,4,2,1,32.3,below_line,既存品で需要捕捉済み
 2026-06-13,zen-coloring-pages,4,2,4,1,1,31.4,rejected,曼荼羅塗り絵は飽和
 2026-06-13,procreate-brush-japanese,3,3,2,2,1,30.0,rejected,ブラシ制作はAI適合度低
+2026-07-11,tsukimi-moon-viewing,3,4,4,4,5,39.0,candidate,十五夜(9/25)向け月見テーマ。moon party市場は飽和気味だがtsukimi特化のデジタル印刷物はほぼ皆無(既存はハンドメイド物理品中心)。8週ラグ販売開始に最適タイミング
+2026-07-11,autumn-equinox-higan-ohagi,2,2,3,1,4,21.0,below_line,需要規模小・墓参り連想で西洋層に刺さりにくい。印刷物需要の実例見つからず
+2026-07-11,kakeibo-budget-planner,4,1,4,1,2,23.0,below_line,家計簿(kakeibo)は既に多数の確立ショップがEtsy上位独占。歪みシグナルなし
